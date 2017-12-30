@@ -2,7 +2,7 @@ import random
 # randomly generate number
 random = random.randint(1, 20)
 # user asked to input their guess number
-print random
+
 while True:
     user_guess = input("Guess a number between 1 and 20:  ")
 
