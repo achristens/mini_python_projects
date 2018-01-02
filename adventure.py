@@ -25,6 +25,7 @@ def adjust_position(direction):
         player['y'] += 1
 
 def check_walls(direction):
+    # Living Room logic
     if player['current room'] == 'living room':
         if (player['x'] == 0 and player['y'] == 2) or (player['x'] == 2 and player['y'] == 0):
             player['current room'] = 'living room'
@@ -39,30 +40,39 @@ def check_walls(direction):
         elif (player['y'] > 2 or player['x'] > 2):
             print('You cannot move further in this direction.')
             adjust_position(direction)
+
+    # Kitchen Logic
     elif player['current room'] == 'kitchen':
-        if (player['y'] > 2 or player['x'] > 6) :
+        if (player['x'] == 3 and player['y'] == 0) or (player['x'] == 5 and player['y'] == 2):
+            player['current room'] = 'kitchen'
+            print('~~~~~~~~~~~~~~~~~~~~~~~')
+            print(rooms['kitchen'])
+            print('~~~~~~~~~~~~~~~~~~~~~~~')
+        elif player['x'] == 2 and player['y'] == 0:
+            player['current room'] = 'living room'
+            print('~~~~~~~~~~~~~~~~~~~~~~~')
+            print(rooms['living room'])
+            print('~~~~~~~~~~~~~~~~~~~~~~~')
+        elif player['x'] == 5 and player['y'] == 3:
+            player['current room'] = 'dining room'
+            print('~~~~~~~~~~~~~~~~~~~~~~~')
+            print(rooms['dining room'])
+            print('~~~~~~~~~~~~~~~~~~~~~~~')
+        elif (player['y'] > 2 or player['x'] > 6) :
             print('You cannot move further in this direction.')
-            return True
-        else:
-            at_door()
+            adjust_position(direction)
+
+    # Dining Room Logic
     elif (player['y'] > 5 or player['x'] > 6) and player['current room'] == 'dining room':
         print('You cannot move further in this direction.')
         return True
+
+    # Library Logic
     elif (player['y'] > 5 or player['x'] > 2) and player['current room'] == 'library':
         print('You cannot move further in this direction.')
         return True
 
 def at_door():
-    if (player['x'] == 0 and player['y'] == 2) or (player['x'] == 2 and player['y'] == 0):
-        player['current room'] = 'living room'
-        print('~~~~~~~~~~~~~~~~~~~~~~~')
-        print(rooms['living room'])
-        print('~~~~~~~~~~~~~~~~~~~~~~~')
-    elif (player['x'] == 3 and player['y'] == 0) or (player['x'] == 5 and player['y'] == 2):
-        player['current room'] = 'kitchen'
-        print('~~~~~~~~~~~~~~~~~~~~~~~')
-        print(rooms['kitchen'])
-        print('~~~~~~~~~~~~~~~~~~~~~~~')
     elif (player['x'] == 5 and player['y'] == 3) or (player['x'] == 3 and player['y'] == 5):
         player['current room'] = 'dining room'
         print('~~~~~~~~~~~~~~~~~~~~~~~')
@@ -97,14 +107,3 @@ while True:
         break
 
     print(player)
-
-#
-# living room, x =  0, 1, 2
-# living room, y =  0, 1, 2
-# kitchen, x     =  3, 4, 5, 6
-# ktichen, y     =  0, 1, 2
-#
-# dining room, x =  3, 4, 5, 6
-# dining room, y =  3, 4, 5
-# library, x     =  0, 1, 2
-# library, y     =  3, 4, 5
