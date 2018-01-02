@@ -12,17 +12,33 @@ player = {
     'current room': 'living room'
 }
 
-
 print("You've entered the house, you're currently in the living room.")
 
-def check_walls():
-    if player is y  == 0 and x == 2
+def adjust_position(direction):
+    if direction == "E":
+        player['x'] -= 1
+    if direction == "W":
+        player['x'] += 1
+    elif direction == 'N':
+        player['y'] -= 1
+    elif direction == 'S':
+        player['y'] += 1
+
+def check_walls(direction):
     if player['current room'] == 'living room':
-        if (player['y'] > 2 or player['x'] > 2):
+        if (player['x'] == 0 and player['y'] == 2) or (player['x'] == 2 and player['y'] == 0):
+            player['current room'] = 'living room'
+            print('~~~~~~~~~~~~~~~~~~~~~~~')
+            print(rooms['living room'])
+            print('~~~~~~~~~~~~~~~~~~~~~~~')
+        elif (player['x'] == 3 and player['y'] == 0):
+            player['current room'] = 'kitchen'
+            print('~~~~~~~~~~~~~~~~~~~~~~~')
+            print(rooms['kitchen'])
+            print('~~~~~~~~~~~~~~~~~~~~~~~')
+        elif (player['y'] > 2 or player['x'] > 2):
             print('You cannot move further in this direction.')
-            return True
-        else:
-            at_door()
+            adjust_position(direction)
     elif player['current room'] == 'kitchen':
         if (player['y'] > 2 or player['x'] > 6) :
             print('You cannot move further in this direction.')
@@ -66,24 +82,16 @@ while True:
     # track how far the user has moved
     if direction == 'N':
         player['y'] += 1
-        at_door()
-        if check_walls():
-            player['y'] -= 1
+        check_walls(direction)
     elif direction == 'S':
         player['y'] -= 1
-        at_door()
-        if check_walls():
-            player['y'] += 1
+        check_walls(direction)
     elif direction == 'W':
         player['x'] -= 1
-        at_door()
-        if check_walls():
-            player['x'] += 1
+        check_walls(direction)
     elif direction == 'E':
-        at_door()
         player['x'] += 1
-        if check_walls():
-            player['x'] -= 1
+        check_walls(direction)
     elif direction == "exit":
         print("Goodbye! ")
         break
