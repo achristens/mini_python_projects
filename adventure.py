@@ -8,37 +8,88 @@ rooms = {
 
 player = {
     'x': 0,
-    'y': 2
+    'y': 2,
+    'current room': 'living room'
 }
+
 
 print("You've entered the house, you're currently in the living room.")
 
-while True:
+def check_walls():
+    if player is y  == 0 and x == 2
+    if player['current room'] == 'living room':
+        if (player['y'] > 2 or player['x'] > 2):
+            print('You cannot move further in this direction.')
+            return True
+        else:
+            at_door()
+    elif player['current room'] == 'kitchen':
+        if (player['y'] > 2 or player['x'] > 6) :
+            print('You cannot move further in this direction.')
+            return True
+        else:
+            at_door()
+    elif (player['y'] > 5 or player['x'] > 6) and player['current room'] == 'dining room':
+        print('You cannot move further in this direction.')
+        return True
+    elif (player['y'] > 5 or player['x'] > 2) and player['current room'] == 'library':
+        print('You cannot move further in this direction.')
+        return True
+
+def at_door():
     if (player['x'] == 0 and player['y'] == 2) or (player['x'] == 2 and player['y'] == 0):
+        player['current room'] = 'living room'
+        print('~~~~~~~~~~~~~~~~~~~~~~~')
         print(rooms['living room'])
+        print('~~~~~~~~~~~~~~~~~~~~~~~')
     elif (player['x'] == 3 and player['y'] == 0) or (player['x'] == 5 and player['y'] == 2):
+        player['current room'] = 'kitchen'
+        print('~~~~~~~~~~~~~~~~~~~~~~~')
         print(rooms['kitchen'])
+        print('~~~~~~~~~~~~~~~~~~~~~~~')
     elif (player['x'] == 5 and player['y'] == 3) or (player['x'] == 3 and player['y'] == 5):
+        player['current room'] = 'dining room'
+        print('~~~~~~~~~~~~~~~~~~~~~~~')
         print(rooms['dining room'])
+        print('~~~~~~~~~~~~~~~~~~~~~~~')
     elif (player['x'] == 2 and player['y'] == 5):
-        print(rooms['dining room'])
-        
+        player['current room'] = 'library'
+        print('~~~~~~~~~~~~~~~~~~~~~~~')
+        print(rooms['library'])
+        print('~~~~~~~~~~~~~~~~~~~~~~~')
+
+while True:
+
     # estbalish directions for user to move
     direction = raw_input("Which direction would you like to move in? N/S/E/W:    ")
 
     # track how far the user has moved
     if direction == 'N':
         player['y'] += 1
+        at_door()
+        if check_walls():
+            player['y'] -= 1
     elif direction == 'S':
         player['y'] -= 1
+        at_door()
+        if check_walls():
+            player['y'] += 1
     elif direction == 'W':
         player['x'] -= 1
+        at_door()
+        if check_walls():
+            player['x'] += 1
     elif direction == 'E':
+        at_door()
         player['x'] += 1
+        if check_walls():
+            player['x'] -= 1
     elif direction == "exit":
         print("Goodbye! ")
         break
-    # set limits for how far a user can move (ie establish walls)
+
+    print(player)
+
 #
 # living room, x =  0, 1, 2
 # living room, y =  0, 1, 2
